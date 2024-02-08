@@ -1,0 +1,216 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} product-detail-page {% endblock title %}
+
+{% block main %}
+
+    <!-- product details start -->
+
+    <section id="prod_detail">
+        <div class="container">
+            <div class="overflow-x-hidden flex flex-col justify-center gap-3 mt-6 md:mt-20 ">
+                <!-- product detail -->
+                <div class="  m-auto flex flex-col md:flex-row justify-center gap-3 w-[92vw] md:w-[98vw] md:px-2 xl:w-[85vw]">
+
+                    <div class="img_gallery rounded md:w-[45vw]">
+                        <img id="show_img" src="{{get_product.img.url}}" alt="macbook" class="w-96 h-96">
+                        <div class="list_img_gallery flex gap-2 mt-2">
+                            {% for prodimg in get_product.images.all %}
+                            <img class="list_img w-[6.6rem] h-32 lg:w-[7rem] border-2 cursor-pointer rounded hover:border-c_primary transition" src="{{prodimg.image.url}}" alt="">                            
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <div class="product_detail_text py-4 md:w-[53vw]">
+                        <h1 class="text-center font-bold mb-3">{{get_product.name}}</h1>
+                        <div class="space-y-2">
+                            <div class="discount bg-white px-2 py-1 rounded">
+                                <p>price: <span class="font-bold text-c_primary">{{get_product.price}} ৳</span> <span class="ml-3">discounted price:</span> <del class="mx-5">{{get_product.discounted_price}}৳</del></p>
+                            </div>
+                            <div class="status col-span-2 bg-white px-2 py-1 rounded">
+                                <p>Status: <span class="font-bold text-c_primary">{{get_product.in_stock}} In Stock </span></p>
+                            </div>
+                            <div class="model bg-white px-2 py-1 rounded">
+                                <p>Model: <span class="font-bold text-c_primary">{{get_product.model}}</span></p>
+                            </div>
+                            <div class="brand bg-white px-2 py-1 rounded">
+                                <p>Brand: <span class="font-bold text-c_primary">{{get_product.brand}}</span></p>
+                            </div>
+                        </div>
+                        <div class="btn_box mt-4 mx-auto flex justify-around items-center">
+                            <a href="{% url "order_now" get_product.id get_product.name %}" class="btn_fill">Buy Now</a>
+                            <button value="prod-id" pid="{{get_product.id}}" pname="{{get_product.name}}" id="add_to_cart" class=" add_to_cart btn_fill text-white">Add to card</button>
+                        </div>
+
+                        <article class="">
+                            <h1 class="font-semibold my-3">{{get_product.name}}</h1>
+                            <ul class="px-8">
+                                    {{get_product.Product_information | safe}}
+                            </ul>
+                        </article>
+
+                    </div>
+                    
+                </div>
+                <!-- recently viewed products -->
+                <div id="recently_viewed" class=" m-auto w-[66vh] h-[50vh] overflow-y-scroll p-4 border md:w-[82vw] md:h-[100vh] lg:w-[82vw] lg:h-[100vh]" >
+                    
+                    <div class="recently_viewed">
+                        <div class="same_category_prod_text">
+                            <h1 class="font-bold text-xl my-4 text-center capitalize">
+                                Recently viewed products
+                            </h1>
+                        </div>
+                    </div>
+
+                    <div class=" overflow-hidden flex justify-around items-center gap-y-4 gap-x-0 flex-wrap">
+                        {% for g_p_b_c in get_product_by_category %}
+                        <div class="card border hover:shadow-lg rounded-md transition duration-200 py-5 px-1 relative w-[48.4vw] h-[64vh] md:w-[32.4vw] md:h-[63vh] md:px-4 lg:w-[24.4vw] lg:h-[66vh] xl:w-[18.7vw] xl:h-[58vh]">
+                
+                            <!-- offer percentize element -->
+                            {% if g_p_b_c.offer_percent %}
+                            <div class="absolute -top-0 left-0 border py-1 px-2 bg-c_primary flex items-center"> <img src="{% static "../static/img/minus.png" %}" alt="minus" class="w-4"> <p class="text-xs lg:text-sm text-white">{{g_p_b_c.offer_percent}}</p>
+                            </div>
+                            {% endif %}
+                            
+                            <!-- out of stock element -->
+                            {% if g_p_b_c.in_stock == 0 %}
+                            <div class="absolute top-16 right-6 border border-c_primary py-1 px-2 bg-black"><p class="text-xs lg:text-sm text-white">Out of Stock </p>
+                            </div>
+                            {% endif %}
+                
+                            <div >
+                                <a href="{% url "prod_detail" g_p_b_c.id g_p_b_c.name %}" class="w-[145px] h-[145px] group">
+                                    <img src="{{g_p_b_c.img.url}}" alt="" class="h-36 w-32 m-auto" />
+                
+                                    <small class="group-hover:text-c_primary">{{g_p_b_c.name | truncatewords:5}}</small>
+                                </a>
+                            </div>
+                
+                            <div class="price my-2 flex justify-evenly items-center">
+                                <del><small class=" font-bold">৳{{g_p_b_c.discounted_price}}</small></del>
+                                <p class="text-c_primary font-extrabold">৳{{g_p_b_c.price}}</p>
+                                <small class=" md:block">sold:0</small>
+                            </div>
+                
+                            <div class="ratings mb-2">
+                                <ul class="flex justify-center items-center gap-4">
+                                    <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                                    <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                                    <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                                    <li><img src="{% static "img/icon-2.png" %}" alt=""></li>
+                                    <li><img src="{% static "img/icon-2.png" %}" alt=""></li>
+                                </ul>
+                            </div>
+                            
+                            <div class=" flex flex-col text-center gap-2">
+                                <a href="{% url "order_now"  g_p_b_c.id g_p_b_c.name %}" class="btn_empty hover:text-white hover:bg-c_primary hover:border hover:border-c_primary ">Order Now</a>
+                                <button value="prod-id" pid="{{g_p_b_c.id}}" pname="{{g_p_b_c.name}}" id="add_to_cart" class=" add_to_cart btn_fill hover:text-black hover:bg-white hover:border hover:border-c_primary ">Add to card</button>
+                            </div>
+                
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- product details end -->
+    
+    <!-- product specifications start -->
+
+    <section id="prod_spe">
+        <div class="container px-8 my-5">
+            <h1 class="text-2xl font-bold bg-c_gray px-4 py-2 ">
+                Description
+            </h1>
+            <h1 class="text-2xl font-medium my-6">
+                {{get_product.name}}
+            </h1>
+            <p >
+                <a href="#" class="border-b-2 border-c_primary"></a> {{get_product.Description | safe }}
+            </p>
+
+            <!-- <article>
+                <h1 class="font-semibold text-start my-3">{{get_product.name}}</h1>
+                <ul class="px-8">
+                    {{get_product.Product_information | safe}}
+                </ul>
+            </article> -->
+
+        </div>
+        <hr class="bg-c_primary h-3">
+    </section>
+
+    <!-- product specifications end -->
+
+
+    <!-- same category products -->
+
+    <div class="container my-10 px-1">
+        <div class="same_category_prod_text">
+            <h1 class="font-bold text-xl my-10 text-center capitalize">
+                same categories products
+            </h1>
+        </div>
+
+        <div class="same_category_prod_card">
+
+            <div class=" overflow-hidden flex justify-around items-center gap-y-4 gap-x-0 flex-wrap">
+                {% for g_p_b_c in get_product_by_category %}
+                <div class="card border hover:shadow-lg rounded-md transition duration-200 py-5 px-1 relative w-[48.4vw] h-[64vh] md:w-[32.4vw] md:h-[63vh] md:px-4 lg:w-[24.4vw] lg:h-[66vh] xl:w-[18.7vw] xl:h-[58vh]">
+        
+                    <!-- offer percentize element -->
+                    {% if g_p_b_c.offer_percent %}
+                    <div class="absolute -top-0 left-0 border py-1 px-2 bg-c_primary flex items-center"> <img src="{% static "../static/img/minus.png" %}" alt="minus" class="w-4"> <p class="text-xs lg:text-sm text-white">{{g_p_b_c.offer_percent}}</p>
+                    </div>
+                    {% endif %}
+                    
+                    <!-- out of stock element -->
+                    {% if g_p_b_c.in_stock == 0 %}
+                    <div class="absolute top-16 right-6 border border-c_primary py-1 px-2 bg-black"><p class="text-xs lg:text-sm text-white">Out of Stock </p>
+                    </div>
+                    {% endif %}
+        
+                    <div >
+                        <a href="{% url "prod_detail" g_p_b_c.id g_p_b_c.name %}" class="w-[145px] h-[145px] group">
+                            <img src="{{g_p_b_c.img.url}}" alt="" class="h-36 w-32 m-auto" />
+        
+                            <small class="group-hover:text-c_primary">{{g_p_b_c.name | truncatewords:5}}</small>
+                        </a>
+                    </div>
+        
+                    <div class="price my-2 flex justify-evenly items-center">
+                        <del><small class=" font-bold">৳{{g_p_b_c.discounted_price}}</small></del>
+                        <p class="text-c_primary font-extrabold">৳{{g_p_b_c.price}}</p>
+                        <small class=" md:block">sold:0</small>
+                    </div>
+        
+                    <div class="ratings mb-2">
+                        <ul class="flex justify-center items-center gap-4">
+                            <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                            <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                            <li><img src="{% static "img/icon-1.png" %}" alt=""></li>
+                            <li><img src="{% static "img/icon-2.png" %}" alt=""></li>
+                            <li><img src="{% static "img/icon-2.png" %}" alt=""></li>
+                        </ul>
+                    </div>
+                    
+                    <div class=" flex flex-col text-center gap-2">
+                        <a href="{% url "order_now"  g_p_b_c.id g_p_b_c.name %}" class="btn_empty hover:text-white hover:bg-c_primary hover:border hover:border-c_primary ">Order Now</a>
+                        <button value="prod-id" pid="{{g_p_b_c.id}}" pname="{{g_p_b_c.name}}" id="add_to_cart" class=" add_to_cart btn_fill hover:text-black hover:bg-white hover:border hover:border-c_primary ">Add to card</button>
+                    </div>
+        
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <!-- same category ends-->
+
+{% endblock main %}

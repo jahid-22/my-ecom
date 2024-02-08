@@ -1,0 +1,292 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} payment{% endblock title %}
+
+{% block main %}
+
+<!-- payment section starts -->
+
+<section id="payment" class="mt-20 mb-20">
+  <div class="container">
+
+    <h3 class="text-center mb-5 mt-8 text-lg font-medium">Enter Your Delivary Info.</h3>
+    <form action="{% url "payment:payment_address" %}" method="POST" class=" flex flex-col justify-center gap-y-3 md:flex-row md:gap-x-2 bg-white border shadow-md rounded px-8  py-5 mb-4">
+      {% csrf_token %}
+
+      <!-- form's address section -->
+      <div class="md:w-2/3 space-y-2">
+
+        <div>
+          <label for="name">Full Name</label>
+          <input type="text" name="name" required id="name" placeholder="Your full name" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div>
+          <label for="email">Email</label>
+          <input type="email" name="full_name" required id="email" placeholder="Email (optional)" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div>
+          <label for="number">Phone Number</label>
+          <input type="number" name="phone_number" required id="number" placeholder="Phone number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+
+        <div>
+          <label for="division">Devision</label>
+          <select name="division" id="division" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="Dhaka">Dhaka</option>
+            <option value="Barishal">Barishal</option>
+            <option value="Chattogram">Chattogram</option>
+            <option value="Khulna">Khulna</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Rajshahi">Rangpur</option>
+            <option value="Rajshahi">Mymensingh</option>
+            <option value="Rajshahi">Sylhet</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="district">district</label>
+          <select name="district" id="district" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option value="Dhaka">Dhaka</option>
+            <option value="Barishal">Faridpur</option>
+            <option value="Chattogram">Gazipur</option>
+            <option value="Khulna">Gopalganj</option>
+            <option value="Rajshahi">Kishoreganj</option>
+            <option value="Rajshahi">Madaripur</option>
+            <option value="Rajshahi">Manikganj</option>
+            <option value="Rajshahi">Mymensingh</option>
+            <option value="Rajshahi">Narayanganj</option>
+            <option value="Rajshahi">Narsingdi</option>
+            <option value="Rajshahi">Netrokona</option>
+            <option value="Rajshahi">Rajbari</option>
+            <option value="Rajshahi">Shariatpur</option>
+            <option value="Rajshahi">Tangail</option>
+            <option value="Rajshahi">Bogra</option>
+            <option value="Rajshahi">Joypurhat</option>
+            <option value="Rajshahi">Naogaon</option>
+            <option value="Rajshahi">Natore</option>
+            <option value="Rajshahi">Nawabganj</option>
+            <option value="Rajshahi">Pabna</option>
+            <option value="Rajshahi">Rajshahi</option>
+            <option value="Rajshahi">Sirajgonj</option>
+            <option value="Rajshahi">Dinajpur</option>
+            <option value="Rajshahi">Gaibandha</option>
+            <option value="Rajshahi">Kurigram</option>
+            <option value="Rajshahi">Lalmonirhat</option>
+            <option value="Rajshahi">Nilphamari</option>
+            <option value="Rajshahi">Panchagarh</option>
+            <option value="Rajshahi">Rangpur</option>
+            <option value="Rajshahi">Thakurgaon</option>
+            <option value="Rajshahi">Barguna</option>
+            <option value="Rajshahi">Barisal</option>
+            <option value="Rajshahi">Bhola</option>
+            <option value="Rajshahi">Jhalokati</option>
+            <option value="Rajshahi">Patuakhali</option>
+            <option value="Rajshahi">Pirojpur</option>
+            <option value="Rajshahi">Bandarban</option>
+            <option value="Rajshahi">Brahmanbaria</option>
+            <option value="Rajshahi">Chandpur</option>
+            <option value="Rajshahi">Chittagong</option>
+            <option value="Rajshahi">Comilla</option>
+            <option value="Rajshahi">Cox''s Bazar</option>
+            <option value="Rajshahi">Feni</option>
+            <option value="Rajshahi">Khagrachari</option>
+            <option value="Rajshahi">Lakshmipur</option>
+            <option value="Rajshahi">Noakhali</option>
+            <option value="Rajshahi">Rangamati</option>
+            <option value="Rajshahi">Habiganj</option>
+            <option value="Rajshahi">Maulvibazar</option>
+            <option value="Rajshahi">Sunamganj</option>
+            <option value="Rajshahi">Sylhet</option>
+            <option value="Rajshahi">Bagerhat</option>
+            <option value="Rajshahi">Chuadanga</option>
+            <option value="Rajshahi">Jessore</option>
+            <option value="Rajshahi">Jhenaidah</option>
+            <option value="Rajshahi">Khulna</option>
+            <option value="Rajshahi">Kushtia</option>
+            <option value="Rajshahi">Magura</option>
+            <option value="Rajshahi">Meherpur</option>
+            <option value="Rajshahi">Narail</option>
+            <option value="Rajshahi">Satkhira</option>
+            </select>
+        </div>
+
+
+        <div >
+          <label for="address">Address</label>
+          <input type="text" name="address" required id="address" placeholder="Upazila, Apartment, suite, etc." class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        
+      </div>
+
+      <!-- cart summary -->
+      <div class="cart_summary md:w-1/3">
+        <h4 class="text-center mb-4 font-bold">Order Summury</h4>
+        
+        <div class="summary px-12 md:px-4 py-4 md:py-4 my-5 md:my-0 md:ml-2 bg-c_gray rounded-md ">
+        
+          <div class="div flex justify-between px-1 py-1">
+            <span class="font-bold">Total Product: </span> <small>{{product_count}}</small>
+          </div>
+
+          <div class="div flex justify-between px-1 py-1">
+            <span class="font-bold">SubTotal: </span> <small id="subtotal">{{subtotal}} ৳</small>
+          </div>
+
+          <hr class="h-[.1rem] my-1 bg-c_primary">
+
+          <!--  Radio button -->
+
+          <div class="class=div flex justify-between px-1 py-1">
+
+            <div>
+              <span class="font-bold">Shiping</span>
+            </div>
+
+            <div class="shping_check_box ">
+              <label class="block" for="radio_btn">All Bangladesh</label>
+              <input class="block" required type="radio" name="shping" id="allBD" value="120">
+              <label class="block" for="radio_btn" >120 <span>৳</span></label>
+            </div>
+
+            <div class="shping_check_box ">
+              <label class="block" for="radio_btn">Inside Dhaka</label>
+              <input class="block" required type="radio" name="shping" id="Dhaka" value="60">
+              <label class="block" for="radio_btn">60 <span>৳</span></label>
+            </div>
+
+          </div>
+
+          <hr class="h-[.1rem] my-1 bg-c_primary">
+
+          <div class="div flex justify-between px-1 py-1">
+            <span class="font-bold">Total: </span> <small id="totalamount">{{subtotal}} <span>৳</span></small>
+          </div>
+          <hr class="h-[.1rem] my-1 bg-c_primary">
+
+          <!--  checkbox button -->
+
+          <div class="class=div flex justify-between px-1 py-1 mt-3">
+
+            <div class="">
+              <span class="font-bold">Payment</span>
+            </div>
+
+            <div class="shping_check_box ">
+              <input type="checkbox" id="full_payment" class="exclusive-checkbox" name="payment" value="Full Payment" id="full_payment">
+              <label for="full_payment">Full Payment</label>
+            </div>
+
+            <div class="shping_check_box ">
+              <input type="checkbox" id="cash_on" class="exclusive-checkbox" name="payment" value="Cash On" id="cash_on">
+              <label for="cash_on">Cash On</label>
+            </div>
+          </div>
+          <hr class="h-[.1rem] my-1 bg-c_primary">
+
+          <div id="popup" style="display: none;">
+            <p class="text-center py-2 border transition rounded bg-c_primary text-white">To confirm the order, you have to pay for the delivery first.  </p>
+          </div>
+
+          <div>
+            <h1 class="btn_fill text-center">Our Bkash Personal</h1>
+            <h2 class="bg-c_gray text-center">018823576776</h2>
+
+            <small> প্রিয় গ্রাহক, আমরা আপনার তথ্য অনৈতিক কোন কাজে ব্যবহার না করার অঙ্গীকার করছি। শুধু মাত্র সঠিক ভাবে পণ্য পোঁছানোর জন্যেই আমরা তথ্যগুলো নিয়ে থাকি। 
+            
+            </small>
+          </div>
+
+          <div class="flex justify-between my-2">
+            <label for="">Phone Number</label>
+            <input type="number" name="transactionNumber" required placeholder="01xxxxxxxxxx" class="px-4 py-2">
+          </div>
+
+          <div class="flex justify-between">
+            <label for="">Transaction Number</label>
+            <input type="text" name="transactionId" required placeholder="09fVwxxxxxxxxxxxxx" class="px-4 py-2">
+          </div>
+
+        </div>
+
+        <div class="btn">
+          <button class="bg-c_primary py-3 text-center px-6 text-sm md:text-xl font-semibold md:px-8 mx-auto block mt-4 text-white lg:text-sm rounded ">Coninue</button>
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+</section>
+
+<!-- payment section ends -->
+
+<!-- checkbox of billing page -->
+
+<script>
+
+// shiping
+
+function shiping() {
+  let allBD = document.getElementById("allBD");
+let dhaka = document.getElementById("Dhaka");
+let totalamount = document.getElementById("totalamount");
+
+allBD.addEventListener('click', function() {
+    let m = parseInt(allBD.value);
+    let n = parseInt(totalamount.textContent); // Parse the totalamount text as an integer
+
+    totalamount.innerText = m + n; // Update the totalamount text content
+});
+
+dhaka.addEventListener('click', function() {
+    console.log('clicked');
+    let m = parseInt(dhaka.value);
+    let n = parseInt(totalamount.textContent); // Parse the totalamount text as an integer
+
+    totalamount.innerText = m + n; // Update the totalamount text content
+});
+}
+
+shiping()
+
+  // payment
+
+function payment() {
+  var checkboxes = document.querySelectorAll('.exclusive-checkbox');
+
+checkboxes.forEach(function (checkbox) {
+  checkbox.addEventListener('change', function () {
+    checkboxes.forEach(function (otherCheckbox) {
+      if (otherCheckbox !== checkbox) {
+        otherCheckbox.checked = false;
+      }
+    });
+  });
+});
+}
+
+payment()
+
+  // cash on `popup`
+  
+  let cash_on = document.getElementById("cash_on");
+  let full_payment = document.getElementById("full_payment");
+  let popup = document.getElementById("popup");
+  console.log('helloo');
+
+  cash_on.addEventListener('click', function() {
+    popup.style.display = 'block'
+  })
+
+  full_payment.addEventListener('click', function() {
+    popup.style.display = 'none'
+  })
+
+</script>
+
+
+{% endblock main %}
